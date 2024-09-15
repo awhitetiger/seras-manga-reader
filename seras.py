@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from mangadata import *
+from setup import *
 import os
 import re
 
