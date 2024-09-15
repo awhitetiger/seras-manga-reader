@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Chapter</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+		.image-container {
+		  display: flex;
+		  justify-content: center; /* Centers horizontally */
+		  align-items: center; /* Centers vertically */
+		  height: 100%; /* Full viewport height */
+		  width: 100%; /* Full viewport width */
+		  overflow: hidden; /* Ensures no scrollbars appear */
+		}
+
+		.img-fluid {
+		  max-width: 100%;
+		  max-height: 100%;
+		  object-fit: contain; /* Ensures the image maintains aspect ratio */
+		}
+
+		/* Center image only if it is smaller than the viewport */
+		.image-container img {
+		  display: block; /* Remove extra space below the image */
+		}
+
+        .nav-button {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            cursor: pointer;
+            opacity: 0; /* Make the buttons invisible */
+            font-size: 2em;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10; /* Ensure buttons are above the image */
+        }
+        .nav-button.left {
+            left: 0;
+            text-align: left;
+            padding-left: 10px; /* Add padding if needed */
+        }
+        .nav-button.right {
+            right: 0;
+            text-align: right;
+            padding-right: 10px; /* Add padding if needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="image-container">
+            <!-- Previous Page Button -->
+            {% if page >= 1 %}
+            <a href="{{ url_for('chapter', mangaid=mangaid, chapterid=chapterid, page=page-1) }}" class="nav-button left">&laquo;</a>
+            {% endif %}
+
+			<div class="image-container">
+				<img src="/static/{{mangaid}}/{{chapterid}}/{{image}}" class="img-fluid" alt="Chapter Page">
+			</div>
+
+            <!-- Next Page Button -->
+			{% if page+1 > numpages-1 %}
+            <a href="{{ url_for('chapter', mangaid=mangaid, chapterid=nextchapter, page=0) }}" class="nav-button right">&raquo;</a>
+			{% else %}
+			<a href="{{ url_for('chapter', mangaid=mangaid, chapterid=chapterid, page=page+1) }}" class="nav-button right">&raquo;</a>
+			{% endif %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
